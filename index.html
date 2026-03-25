@@ -967,6 +967,10 @@
             // Spaced Repetition Tracking
             spaceRepData: {},
 
+            // Session tracking
+            sessionQuestionCount: 0,
+            sessionAskedIds: new Set(),
+
             // User Progress
             levelProgress: {
                 1: { completed: 0, mastered: 0, total: 40, threshold: 0.9, unlocked: true },
@@ -974,8 +978,24 @@
                 3: { completed: 0, mastered: 0, total: 15, threshold: 0.85, unlocked: false },
                 4: { completed: 0, mastered: 0, total: 13, threshold: 3, unlocked: false }, // Need 3+ stars per question
                 5: { completed: 0, mastered: 0, total: 88, threshold: 0, unlocked: false }
+            },
+
+            // Load progress from localStorage
+            loadProgress: function() {
+                const saved = localStorage.getItem('levelProgress');
+                if (saved) {
+                    this.levelProgress = JSON.parse(saved);
+                }
+            },
+
+            // Save progress to localStorage
+            saveProgress: function() {
+                localStorage.setItem('levelProgress', JSON.stringify(this.levelProgress));
             }
         };
+
+        // Initialize app
+        app.loadProgress();
 
         // ============================================
         // LEVEL 1: FOUNDATION RECOGNITION QUESTIONS
@@ -983,7 +1003,7 @@
 
         const level1Questions = [
             // TPM Fundamentals
-            { id: 'L1Q1', type: 'mc', text: 'What is the "Triple Constraint" in project management?', options: [
+            { id: 'L1Q1', type: 'mc', text: 'Your VP asks you to add 3 major features to the product without extending timeline or budget. What foundational concept explains why this is problematic?', options: [
                 { text: 'Scope, Schedule, Cost' },
                 { text: 'Scope, Schedule, Quality' },
                 { text: 'Schedule, Cost, Resources' },
@@ -992,21 +1012,21 @@
 
             { id: 'L1Q2', type: 'tf', text: 'Phase-Gate processes are only useful for hardware projects, not software.', correct: false, explanation: 'Phase-Gate applies to any complex, multi-team program—hardware, software, mixed. It\'s about discipline and decision points.' },
 
-            { id: 'L1Q3', type: 'mc', text: 'In Critical Path Analysis, what does the "critical path" represent?', options: [
+            { id: 'L1Q3', type: 'mc', text: 'Your team is 6 months from launch but a manufacturing supplier just reported a 3-month lead time issue. You trace dependencies and realize delaying this supplier pushes the ship date back. This is an example of understanding:', options: [
                 { text: 'The longest sequence of dependent activities' },
                 { text: 'The shortest sequence of activities' },
                 { text: 'The path with the most risk' },
                 { text: 'The path with the lowest cost' }
             ], correct: 0, explanation: 'Critical Path = longest duration to project completion. Delay any critical task = project delay.' },
 
-            { id: 'L1Q4', type: 'mc', text: 'What is a Risk Register used for?', options: [
+            { id: 'L1Q4', type: 'mc', text: 'Your team is planning a new product launch and has identified 15 potential risks: supplier delays, yield failures, regulatory delays, staffing gaps. How do you track and manage them?', options: [
                 { text: 'Documenting identified risks, owners, mitigation plans, and status' },
                 { text: 'Tracking all project expenses' },
                 { text: 'Recording team member feedback' },
                 { text: 'Listing all project dependencies' }
             ], correct: 0, explanation: 'A Risk Register is your living document of what could go wrong, who owns it, and what you\'re doing about it.' },
 
-            { id: 'L1Q5', type: 'mc', text: 'RACI stands for:', options: [
+            { id: 'L1Q5', type: 'mc', text: 'Your team is confused about who needs to approve a design change vs. who just needs a heads-up. Which framework would you use to clarify roles and responsibilities?', options: [
                 { text: 'Responsible, Accountable, Consulted, Informed' },
                 { text: 'Resources, Approval, Communication, Implementation' },
                 { text: 'Requirements, Architecture, Code, Integration' },
@@ -1015,7 +1035,7 @@
 
             { id: 'L1Q6', type: 'tf', text: 'FMEA (Failure Mode & Effects Analysis) focuses on identifying what can fail and designing it out early.', correct: true, explanation: 'FMEA = proactive risk discipline. Identify failure modes, effects, and root causes before they become problems.' },
 
-            { id: 'L1Q7', type: 'mc', text: 'What are OKRs?', options: [
+            { id: 'L1Q7', type: 'mc', text: 'In your product strategy, you want to ship a smart glasses product by Q4 2025 and capture 15% of a specific market. These are examples of:', options: [
                 { text: 'Objectives and Key Results—strategic goals with measurable outcomes' },
                 { text: 'Operations, Key Reports' },
                 { text: 'Optimized Key Resources' },
@@ -1024,14 +1044,14 @@
 
             { id: 'L1Q8', type: 'tf', text: 'A "Program Cadence" is optional—most programs can manage without it.', correct: false, explanation: 'Cadence is non-negotiable. Weekly standups, bi-weekly reviews, monthly steering—it\'s the drumbeat that keeps everyone aligned.' },
 
-            { id: 'L1Q9', type: 'mc', text: 'Scope Creep occurs when:', options: [
+            { id: 'L1Q9', type: 'mc', text: 'Mid-launch, your business team requests 5 new features you didn\'t budget for. Engineering says they can add 2 without impacting timeline, but the other 3 would slip the ship date by 8 weeks. What\'s the core problem?', options: [
                 { text: 'Undocumented requirements or changes expand the program without time/resource adjustment' },
                 { text: 'The team is moving too slowly' },
                 { text: 'The budget increases' },
                 { text: 'New team members join the program' }
             ], correct: 0, explanation: 'Scope Creep = death of a thousand cuts. You need a change control process and the courage to say no.' },
 
-            { id: 'L1Q10', type: 'mc', text: 'Dependency Management is critical because:', options: [
+            { id: 'L1Q10', type: 'mc', text: 'Your firmware team can\'t start until the hardware team finishes PCB design. The PCB team is waiting on a vendor sample. These chains of "can\'t proceed without X" are why managing X is critical:', options: [
                 { text: 'Unmanaged dependencies create scheduling risk and can block critical path' },
                 { text: 'It helps the team socialize better' },
                 { text: 'It reduces the number of meetings' },
@@ -1058,30 +1078,30 @@
             { id: 'L1Q14', type: 'tf', text: 'Behavioral interview questions are more important at L6 than hypothetical scenarios.', correct: false, explanation: 'Both matter. Behavioral shows judgment from past decisions. Hypothetical shows how you\'d handle new situations. You need both.' },
 
             // Technical Terms
-            { id: 'L1Q15', type: 'mc', text: 'What is SPC in manufacturing?', options: [
+            { id: 'L1Q15', type: 'mc', text: 'During PVT, your coating yield drops from 92% to 78% over two weeks. Which methodology would help you detect this drift before it becomes a crisis?', options: [
                 { text: 'Statistical Process Control—monitoring production variability with control limits' },
                 { text: 'Strategic Production Cost' },
                 { text: 'Supply Process Control' },
                 { text: 'Standard Process Capability' }
             ], correct: 0, explanation: 'SPC = early warning system. If a process drifts beyond control limits, you catch it before scrap/yield loss.' },
 
-            { id: 'L1Q16', type: 'mc', text: 'EVT, DVT, PVT stand for:', options: [
+            { id: 'L1Q16', type: 'mc', text: 'Your hardware program is moving through validation phases. First you ask "does it work?", then "does it work consistently?", and finally "can we manufacture it?" What are these phases called?', options: [
                 { text: 'Engineering, Design, Production Validation/Test phases' },
                 { text: 'Expected Value, Design Threshold, Product Version Type' },
                 { text: 'Electronic, Digital, Physical Validation Tiers' },
                 { text: 'Early View Testing, Design Variation Test, Product Validation Test' }
             ], correct: 0, explanation: 'Hardware program flow: EVT (does it work?), DVT (does it work consistently?), PVT (can we manufacture it?).' },
 
-            { id: 'L1Q17', type: 'tf', text: 'DFM (Design for Manufacturing) considerations should only happen after design is complete.', correct: false, explanation: 'DFM must be baked in from the start. Design with manufacturing constraints in mind = lower cost, higher yield, faster ramp.' },
+            { id: 'L1Q17', type: 'tf', text: 'Your designers finish a beautiful product, but it costs 40% more to manufacture than targeted. Your chief says we should have thought about manufacturing constraints from the start. What principle did you miss?', correct: false, explanation: 'DFM must be baked in from the start. Design with manufacturing constraints in mind = lower cost, higher yield, faster ramp.' },
 
-            { id: 'L1Q18', type: 'mc', text: 'TRL stands for:', options: [
+            { id: 'L1Q18', type: 'mc', text: 'A vendor offers a new sensor technology "straight from the lab." Your leadership asks: is this ready to ship? You need a maturity scale from concept to deployed. What\'s the standard scale called?', options: [
                 { text: 'Technology Readiness Level—maturity scale from concept (1) to deployed (9)' },
                 { text: 'Total Resource Load' },
                 { text: 'Technical Review List' },
                 { text: 'Timeline Requirements Log' }
             ], correct: 0, explanation: 'TRL is a maturity scale. TRL 1 = wild idea. TRL 9 = proven in production. You need to land a program at TRL 8+ to ship.' },
 
-            { id: 'L1Q19', type: 'mc', text: 'A BOM (Bill of Materials) documents:', options: [
+            { id: 'L1Q19', type: 'mc', text: 'Your product needs a custom ASIC, 5 different suppliers, and rare earth magnets. When you build the cost model and supply chain strategy, what document lists all components, quantities, and costs?', options: [
                 { text: 'All components, quantities, and cost for a product' },
                 { text: 'Budget and operating margins' },
                 { text: 'Business overview and management' },
@@ -1089,16 +1109,16 @@
             ], correct: 0, explanation: 'BOM = complete parts list. Cost, sourcing, lead time, reliability—all driven by BOM.' },
 
             // More Fundamentals
-            { id: 'L1Q20', type: 'mc', text: 'What is "intellectual honesty" in the context of program leadership?', options: [
+            { id: 'L1Q20', type: 'mc', text: 'In your weekly steering meeting, you discover your team is 3 weeks behind on a critical path task but haven\'t told anyone until now. As a leader, what quality do you prioritize fixing in this culture?', options: [
                 { text: 'Surfacing bad news early, not sugarcoating risks, and owning mistakes' },
                 { text: 'Having a high IQ' },
                 { text: 'Publishing research papers' },
                 { text: 'Asking lots of questions in meetings' }
             ], correct: 0, explanation: 'Intellectual honesty = trust builder. If you hide bad news until it\'s catastrophic, leadership won\'t trust you.' },
 
-            { id: 'L1Q21', type: 'tf', text: 'A TPM should defer technical decisions to engineers and avoid weighing in on design trade-offs.', correct: false, explanation: 'Wrong. A strong TPM understands the technical landscape, asks good questions, and helps surface the right trade-offs for leadership to decide.' },
+            { id: 'L1Q21', type: 'tf', text: 'As a TPM, you should defer technical decisions to engineers and avoid weighing in on design trade-offs.', correct: false, explanation: 'Wrong. A strong TPM understands the technical landscape, asks good questions, and helps surface the right trade-offs for leadership to decide.' },
 
-            { id: 'L1Q22', type: 'mc', text: 'What is the primary role of a TPM on a program?', options: [
+            { id: 'L1Q22', type: 'mc', text: 'Your engineering team is siloed; vendors are unresponsive; leadership hasn\'t settled on priorities. Teams are confused about what to build first. What is your primary role in this situation?', options: [
                 { text: 'Synthesize information, reduce risk, drive clarity and alignment across teams' },
                 { text: 'Write code and design features' },
                 { text: 'Approve all technical decisions' },
@@ -1115,7 +1135,7 @@
             ], correct: 0, explanation: 'Strong TPM culture = people trust each other enough to surface problems early and solve them together.' },
 
             // More Google-Specific
-            { id: 'L1Q25', type: 'mc', text: 'At Google, what is "context not control"?', options: [
+            { id: 'L1Q25', type: 'mc', text: 'Your team says they need you to approve every design decision. But your manager tells you "don\'t micromanage—set context." What does this mean at Google?', options: [
                 { text: 'Leaders set the goal and constraints; teams own the execution path' },
                 { text: 'Micromanagement is always preferred' },
                 { text: 'No leadership involvement in execution' },
@@ -1124,7 +1144,7 @@
 
             { id: 'L1Q26', type: 'tf', text: 'A TPM at L6 should be focused primarily on their individual program\'s success, not org-level strategy.', correct: false, explanation: 'L6 is strategic. You think about portfolio, org capability gaps, process creation, and cross-program alignment.' },
 
-            { id: 'L1Q27', type: 'mc', text: 'What is a "gates" or "tollgate" in a Phase-Gate process?', options: [
+            { id: 'L1Q27', type: 'mc', text: 'Your program has 5 design reviews, 3 steering committees, and 2 supplier reviews. At each one, leadership decides whether to "go/no-go/pivot" before the next phase starts. What are these review events called?', options: [
                 { text: 'Decision points where leadership reviews progress and gates next phase' },
                 { text: 'Physical doors in the office' },
                 { text: 'Technical documentation gates' },
@@ -1132,7 +1152,7 @@
             ], correct: 0, explanation: 'Gates = decision theaters. Go/no-go/pivot. No gate = no clarity on whether you should keep investing.' },
 
             // Risk & Trade-offs
-            { id: 'L1Q28', type: 'mc', text: 'In a trade matrix, what do you do when there\'s no dominant option?', options: [
+            { id: 'L1Q28', type: 'mc', text: 'You build a trade matrix: Option A is cheaper but riskier; Option B is safer but slower; Option C is fast but quality-risky. None dominates. What do you do?', options: [
                 { text: 'Surface the ambiguity to leadership; they own the trade-off decision' },
                 { text: 'Pick arbitrarily and move forward' },
                 { text: 'Ask the team to vote' },
@@ -1141,7 +1161,7 @@
 
             { id: 'L1Q29', type: 'tf', text: 'Schedule risk is the same as technical risk.', correct: false, explanation: 'Technical risk = will it work? Schedule risk = will we finish on time? Both matter; both need mitigation.' },
 
-            { id: 'L1Q30', type: 'mc', text: 'What is a "red flag" in program planning?', options: [
+            { id: 'L1Q30', type: 'mc', text: 'A supplier says they might not deliver a critical component on time, but "it\'ll probably be fine." You have no backup plan and haven\'t told leadership. What is this?', options: [
                 { text: 'An unmitigated high-risk item with no owner or plan' },
                 { text: 'Any task that takes more than 2 weeks' },
                 { text: 'A feature request from engineering' },
@@ -1149,7 +1169,7 @@
             ], correct: 0, explanation: 'Red flag = something you can\'t or won\'t face. Own it. Don\'t hide it. The longer you hide it, the worse it gets.' },
 
             // Execution
-            { id: 'L1Q31', type: 'mc', text: 'How should a TPM handle a missed milestone?', options: [
+            { id: 'L1Q31', type: 'mc', text: 'Your firmware team misses a critical milestone by 2 weeks. How do you handle it?', options: [
                 { text: 'Immediately surface the miss, quantify the impact, propose recovery plan' },
                 { text: 'Hope no one notices and catch up later' },
                 { text: 'Blame the team' },
@@ -1158,7 +1178,7 @@
 
             { id: 'L1Q32', type: 'tf', text: 'Optimism is always good in program planning.', correct: false, explanation: 'Optimism untempered by rigor = disaster. Use data, historical trends, and buffer planning (not hope).' },
 
-            { id: 'L1Q33', type: 'mc', text: 'What is "program health"?', options: [
+            { id: 'L1Q33', type: 'mc', text: 'Your program is on schedule and under budget, but the team is burnt out, key engineers are leaving, and suppliers are upset. Is your program healthy?', options: [
                 { text: 'Schedule variance, technical risk status, team morale, stakeholder confidence' },
                 { text: 'Team attendance' },
                 { text: 'Budget spent' },
@@ -1174,14 +1194,14 @@
 
             { id: 'L1Q35', type: 'tf', text: 'A TPM at Google is expected to code.', correct: false, explanation: 'No. But you need to understand code, systems, and architecture. You don\'t need to write production code.' },
 
-            { id: 'L1Q36', type: 'mc', text: 'What is a "program runbook"?', options: [
+            { id: 'L1Q36', type: 'mc', text: 'When a new product launches, people ask: "Who decides if we ship with this bug?" "When do we escalate vendor issues?" "How do we handle last-minute requests?" A good TPM creates a:', options: [
                 { text: 'Documented processes, escalation paths, decision frameworks for recurring topics' },
                 { text: 'A book about programs to read' },
                 { text: 'The project schedule' },
                 { text: 'Team training manual' }
             ], correct: 0, explanation: 'Runbook = how we do things. Who decides X? When do we escalate Y? It builds institutional knowledge.' },
 
-            { id: 'L1Q37', type: 'mc', text: 'In a conflict between two teams, what should a TPM do?', options: [
+            { id: 'L1Q37', type: 'mc', text: 'Your hardware team and firmware team disagree: HW wants to ship now; FW needs 4 more weeks. How do you resolve this?', options: [
                 { text: 'Understand both perspectives, surface the root issue, help teams align on a path forward' },
                 { text: 'Immediately side with the louder team' },
                 { text: 'Escalate to leadership and let them decide' },
@@ -1524,10 +1544,16 @@
         }
 
         function renderLevel1() {
+            // Check if quiz is complete
+            const progress = app.levelProgress[1];
+            if (progress.completed >= progress.total) {
+                showLevel1Results();
+                return;
+            }
+
             document.getElementById('levelTitle').textContent = 'Level 1: Foundation Recognition';
             document.getElementById('levelSubtitle').textContent = 'Master TPM fundamentals, technical terms, and Google culture.';
 
-            const progress = app.levelProgress[1];
             const percentage = progress.completed > 0 ? Math.round((progress.mastered / progress.completed) * 100) : 0;
             document.getElementById('levelStats').innerHTML = `
                 <strong>Questions Answered:</strong> ${progress.completed} / ${progress.total}<br>
@@ -1537,9 +1563,77 @@
             `;
 
             const questionArea = document.getElementById('questionArea');
-            const question = level1Questions[Math.floor(Math.random() * level1Questions.length)];
+
+            // Pick a question not yet asked in this session
+            let question = null;
+            const unevenIds = level1Questions.filter(q => !app.sessionAskedIds.has(q.id));
+
+            if (unevenIds.length > 0) {
+                question = unevenIds[Math.floor(Math.random() * unevenIds.length)];
+            } else {
+                // If we've cycled through all, reset and pick random
+                app.sessionAskedIds.clear();
+                question = level1Questions[Math.floor(Math.random() * level1Questions.length)];
+            }
+
+            app.sessionAskedIds.add(question.id);
 
             renderMultipleChoice(question, questionArea, 1);
+        }
+
+        function showLevel1Results() {
+            const progress = app.levelProgress[1];
+            const percentage = Math.round((progress.mastered / progress.completed) * 100);
+            const passed = percentage >= 90;
+
+            document.getElementById('levelTitle').textContent = 'Level 1 Complete!';
+            document.getElementById('levelSubtitle').textContent = 'Quiz Results';
+
+            const levelStats = document.getElementById('levelStats');
+            levelStats.innerHTML = '';
+
+            const questionArea = document.getElementById('questionArea');
+            questionArea.innerHTML = `
+                <div class="score-summary">
+                    <div class="score-label">Final Score</div>
+                    <div class="score-big">${percentage}%</div>
+                    <div class="status-badge ${passed ? 'green' : 'red'}" style="margin-top: 12px;">
+                        ${passed ? 'PASSED - Level 2 Unlocked!' : 'INCOMPLETE - Try Again'}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Your Results</h3>
+                    <div class="criteria-list">
+                        <div class="criteria-item ${passed ? 'met' : 'not-met'}">
+                            <span class="mastery-indicator ${passed ? 'mastered' : ''}"></span>
+                            Questions Answered: ${progress.completed} / ${progress.total}
+                        </div>
+                        <div class="criteria-item ${passed ? 'met' : 'not-met'}">
+                            <span class="mastery-indicator ${passed ? 'mastered' : ''}"></span>
+                            Correct Answers: ${progress.mastered} / ${progress.completed}
+                        </div>
+                        <div class="criteria-item ${passed ? 'met' : 'not-met'}">
+                            <span class="mastery-indicator ${passed ? 'mastered' : ''}"></span>
+                            Score: ${percentage}% (Need 90%+)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons-vertical">
+                    ${passed ? '<button class="btn btn-primary" onclick="app.goToHome()">Home</button>' : '<button class="btn btn-primary" onclick="app.retryLevel1()">Retry Level 1</button>'}
+                    <button class="btn btn-secondary" onclick="app.backToHome()">Back to Home</button>
+                </div>
+            `;
+        }
+
+        function retryLevel1() {
+            // Reset session and progress
+            app.sessionAskedIds.clear();
+            app.sessionQuestionCount = 0;
+            app.levelProgress[1] = { completed: 0, mastered: 0, total: 40, threshold: 0.9, unlocked: true };
+            app.saveProgress();
+            renderLevel1();
         }
 
         function renderLevel2() {
@@ -1632,21 +1726,60 @@
         }
 
         function renderMultipleChoice(question, container, level) {
+            const progress = app.levelProgress[level];
+            const questionNum = progress.completed + 1;
+            const totalQuestions = progress.total;
+
             container.innerHTML = `
                 <div class="question-container">
-                    <div class="question-number">Question</div>
+                    <div class="question-number">Question ${questionNum} of ${totalQuestions}</div>
                     <div class="question-text">${question.text}</div>
                     <div id="optionsArea"></div>
-                    <div class="buttons-vertical">
+                    <div id="feedbackArea"></div>
+                    <div class="buttons-vertical" id="nextButtonArea" style="display:none;">
+                        <button class="btn btn-primary" onclick="app.nextQuestion(${level})">Next Question</button>
+                    </div>
+                    <div class="buttons-vertical" id="skipButtonArea">
                         <button class="btn btn-secondary" onclick="app.skipQuestion()">Skip Question</button>
                     </div>
                 </div>
             `;
 
             const optionsArea = document.getElementById('optionsArea');
-            question.options.forEach((option, idx) => {
+
+            // Handle True/False questions
+            let options = question.options;
+            let correctIdx = question.correct;
+
+            if (question.type === 'tf' && !question.options) {
+                options = [
+                    { text: 'True' },
+                    { text: 'False' }
+                ];
+                correctIdx = question.correct === true ? 0 : 1;
+            } else if (question.options) {
+                // Shuffle the options and track where the correct one ends up
+                const optionsWithIdx = options.map((opt, idx) => ({ ...opt, originalIdx: idx }));
+
+                // Fisher-Yates shuffle
+                for (let i = optionsWithIdx.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [optionsWithIdx[i], optionsWithIdx[j]] = [optionsWithIdx[j], optionsWithIdx[i]];
+                }
+
+                // Find where the correct answer ended up
+                const correctOption = optionsWithIdx.find(opt => opt.originalIdx === correctIdx);
+                correctIdx = optionsWithIdx.indexOf(correctOption);
+                options = optionsWithIdx.map(({ originalIdx, ...opt }) => opt);
+            }
+
+            // Store the correct index on the question for selectOption to use
+            question._correctIdx = correctIdx;
+
+            options.forEach((option, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'option';
+                btn.id = `option-${idx}`;
                 btn.textContent = option.text;
                 btn.onclick = () => app.selectOption(question, idx, level);
                 optionsArea.appendChild(btn);
@@ -1654,23 +1787,64 @@
         }
 
         function selectOption(question, selectedIdx, level) {
-            const correct = selectedIdx === question.correct;
+            const correct = selectedIdx === question._correctIdx;
             const progress = app.levelProgress[level];
 
             progress.completed++;
             if (correct) progress.mastered++;
 
-            // Show feedback
-            setTimeout(() => {
-                alert((correct ? '✓ Correct!' : '✗ Incorrect') + '\n\n' + question.explanation);
-                if (level <= 3) {
-                    if (level === 1) renderLevel1();
-                    else if (level === 2) renderLevel2();
-                    else if (level === 3) renderLevel3();
-                    else if (level === 5) renderLevel5();
+            app.saveProgress();
+
+            // Display inline feedback instead of alert
+            const optionsArea = document.getElementById('optionsArea');
+            optionsArea.style.display = 'none';
+
+            const feedbackArea = document.getElementById('feedbackArea');
+            const feedbackClass = correct ? 'success' : 'danger';
+            const feedbackLabel = correct ? '✓ Correct!' : '✗ Incorrect';
+
+            feedbackArea.innerHTML = `
+                <div class="feedback-box ${feedbackClass}">
+                    <div class="feedback-label">${feedbackLabel}</div>
+                    <div class="feedback-text">${question.explanation}</div>
+                </div>
+            `;
+
+            // Hide skip button and show next button
+            document.getElementById('skipButtonArea').style.display = 'none';
+            document.getElementById('nextButtonArea').style.display = 'flex';
+
+            // Update readiness immediately
+            updateReadiness();
+
+            // Check for level unlock
+            if (level <= 4) {
+                checkLevelUnlock(level);
+            }
+        }
+
+        function nextQuestion(level) {
+            if (level === 1) renderLevel1();
+            else if (level === 2) renderLevel2();
+            else if (level === 3) renderLevel3();
+            else if (level === 4) renderLevel4();
+            else if (level === 5) renderLevel5();
+        }
+
+        function checkLevelUnlock(currentLevel) {
+            const progress = app.levelProgress[currentLevel];
+            const nextLevel = currentLevel + 1;
+
+            // Check if we've met the threshold
+            if (progress.completed >= progress.total) {
+                const passPercentage = Math.round((progress.mastered / progress.completed) * 100);
+                const threshold = Math.round(progress.threshold * 100);
+
+                if (passPercentage >= threshold && nextLevel <= 5) {
+                    app.levelProgress[nextLevel].unlocked = true;
+                    app.saveProgress();
                 }
-                updateReadiness();
-            }, 100);
+            }
         }
 
         function renderStorySelection(question, container) {
@@ -2083,6 +2257,8 @@
         window.app.reRecord = reRecord;
         window.app.scoreResponse = scoreResponse;
         window.app.practiceVoice = practiceVoice;
+        window.app.nextQuestion = nextQuestion;
+        window.app.retryLevel1 = retryLevel1;
 
         document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
