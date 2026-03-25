@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Interview Mastery">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%234361ee' width='192' height='192'/><text x='96' y='140' font-size='120' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>IM</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%234361ee' width='192' height='192' rx='45'/><text x='96' y='110' font-size='100' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>IM</text></svg>">
+    <link rel="manifest" href="data:application/json,{\"name\":\"Interview Mastery\",\"short_name\":\"IM\",\"start_url\":\"/\",\"display\":\"fullscreen\",\"orientation\":\"portrait\",\"background_color\":\"#1a1a2e\",\"theme_color\":\"#4361ee\",\"icons\":[{\"src\":\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect fill='%234361ee' width='192' height='192'/%3E%3Ctext x='96' y='140' font-size='120' font-weight='weight' fill='white' text-anchor='middle' dominant-baseline='central'%3EIM%3C/text%3E%3C/svg%3E\",\"sizes\":\"192x192\",\"type\":\"image/svg+xml\"}]}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Interview Mastery - Google L6 Senior TPM Prep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a51d4;
+            --secondary: #7209b6;
+            --accent: #f72585;
+            --success: #06a77d;
+            --warning: #fbbf24;
+            --danger: #ef4444;
+            --bg-dark: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-tertiary: #0f3460;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* SCREEN STATES */
+        .screen {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-top: 8px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        /* PROGRESS & READINESS */
+        .readiness-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .readiness-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .readiness-value {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .readiness-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .readiness-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            transition: width 0.4s ease-out;
+        }
+
+        .readiness-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .status-badge.green {
+            background: rgba(6, 168, 125, 0.2);
+            color: var(--success);
+        }
+
+        .status-badge.yellow {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+        }
+
+        .status-badge.red {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        /* LEVEL GRID */
+        .level-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .level-card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .level-card:hover:not(.locked) {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .level-card:active:not(.locked) {
+            transform: translateY(0);
+        }
+
+        .level-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .level-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .level-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .level-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .level-progress {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+        }
+
+        .level-lock {
+            font-size: 24px;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            opacity: 0.5;
+        }
+
+        .level-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .level-status.locked {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .level-status.unlocked {
+            background: rgba(6, 168, 125, 0.2);
+            color: var(--success);
+        }
+
+        .level-status.in-progress {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            width: 100%;
+        }
+
+        .btn-secondary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-small {
+            padding: 10px 16px;
+            min-height: 40px;
+            font-size: 13px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* BUTTONS GRID */
+        .buttons-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        /* QUESTION CONTAINER */
+        .question-container {
+            margin-bottom: 24px;
+        }
+
+        .question-number {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* MULTIPLE CHOICE */
+        .option {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .option:active {
+            transform: scale(0.98);
+        }
+
+        .option.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .option.correct {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .option.incorrect {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: white;
+        }
+
+        .option-label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .option-text {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* VOICE RECORDER */
+        .voice-section {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .mic-button {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(67, 97, 238, 0.4);
+        }
+
+        .mic-button.recording {
+            animation: pulse 1s infinite;
+            background: linear-gradient(135deg, var(--danger) 0%, var(--accent) 100%);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 32px rgba(239, 68, 68, 0.8); }
+        }
+
+        .mic-button:active {
+            transform: scale(0.95);
+        }
+
+        .transcription {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            min-height: 60px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .transcription.interim {
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        .timer {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 16px 0;
+            color: var(--primary);
+        }
+
+        .timer.warning {
+            color: var(--warning);
+        }
+
+        .timer.danger {
+            color: var(--danger);
+        }
+
+        /* RATING */
+        .stars-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .star {
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            opacity: 0.3;
+        }
+
+        .star.filled {
+            opacity: 1;
+            animation: fillStar 0.3s ease-out;
+        }
+
+        @keyframes fillStar {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .star:active {
+            transform: scale(1.2);
+        }
+
+        /* FEEDBACK */
+        .feedback-box {
+            background: rgba(67, 97, 238, 0.1);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 8px;
+        }
+
+        .feedback-box.success {
+            background: rgba(6, 168, 125, 0.1);
+            border-left-color: var(--success);
+        }
+
+        .feedback-box.warning {
+            background: rgba(251, 191, 36, 0.1);
+            border-left-color: var(--warning);
+        }
+
+        .feedback-box.danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: var(--danger);
+        }
+
+        .feedback-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .feedback-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* COACHING MESSAGES */
+        .coach-message {
+            background: var(--glass-bg);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 16px 0;
+            font-size: 13px;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .coach-message.success {
+            border-left-color: var(--success);
+        }
+
+        .coach-message.warning {
+            border-left-color: var(--warning);
+        }
+
+        /* CONFETTI */
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+        }
+
+        .confetti-piece {
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            height: 72px;
+            z-index: 100;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-tertiary);
+            border: none;
+            background: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* SCROLLABLE AREAS */
+        .scroll-area {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .level-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .readiness-value {
+                font-size: 40px;
+            }
+
+            body {
+                padding-bottom: 72px;
+            }
+        }
+
+        /* ACCESSIBILITY */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* SCORE SUMMARY */
+        .score-summary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .score-big {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 12px 0;
+        }
+
+        .score-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .criteria-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .criteria-item {
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border-left: 3px solid var(--border-color);
+            margin-bottom: 8px;
+        }
+
+        .criteria-item.met {
+            border-left-color: var(--success);
+            color: var(--text-primary);
+        }
+
+        .criteria-item.partial {
+            border-left-color: var(--warning);
+        }
+
+        .criteria-item.not-met {
+            border-left-color: var(--danger);
+            opacity: 0.7;
+        }
+
+        .mastery-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-tertiary);
+            margin-right: 8px;
+        }
+
+        .mastery-indicator.mastered {
+            background: var(--success);
+        }
+    </style>
+</head>
+<body>
+    <!-- HOME SCREEN -->
+    <div class="screen active" id="homeScreen">
+        <div class="container scroll-area" style="flex: 1; padding-top: 16px;">
+            <div class="header">
+                <h1>Interview Mastery</h1>
+                <p>Google L6 Senior TPM — 2 days to go</p>
+            </div>
+
+            <div class="readiness-section">
+                <div class="readiness-label">Overall Readiness</div>
+                <div class="readiness-value" id="readinessValue">0%</div>
+                <div class="readiness-bar">
+                    <div class="readiness-bar-fill" id="readinessFill" style="width: 0%"></div>
+                </div>
+                <div class="readiness-text">
+                    Complete levels with 85%+ to unlock the next. Finish all questions in a level to calculate readiness.
+                </div>
+                <div id="statusBadge" class="status-badge red">Just Getting Started</div>
+            </div>
+
+            <div class="level-grid" id="levelGrid">
+                <!-- Levels will be populated here -->
+            </div>
+
+            <div class="card">
+                <h3>🎤 General Interview Practice</h3>
+                <p>Master your personal story and key talking points.</p>
+                <button class="btn btn-secondary" onclick="app.goToGeneralPractice()">Start Practice</button>
+            </div>
+
+            <div class="card">
+                <h3>📊 Interview Guide</h3>
+                <p>Review the rubric, company profiles, and what Google expects at L6.</p>
+                <button class="btn btn-secondary" onclick="app.openGuide()">View Guide</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEVEL SCREEN (Multiple Choice) -->
+    <div class="screen" id="levelScreen">
+        <div class="container scroll-area" style="flex: 1;">
+            <button class="btn btn-secondary btn-small" onclick="app.backToHome()" style="width: auto; margin-top: 8px;">← Back</button>
+
+            <div class="header" style="margin-top: 16px;">
+                <h1 id="levelTitle">Level 1</h1>
+                <p id="levelSubtitle">Foundation Recognition</p>
+            </div>
+
+            <div class="readiness-section">
+                <div class="readiness-label">Level Progress</div>
+                <div id="levelStats" style="font-size: 13px; color: var(--text-secondary); line-height: 1.8;">
+                    <!-- Stats will be populated -->
+                </div>
+            </div>
+
+            <div id="questionArea">
+                <!-- Questions will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- LEVEL 4 VOICE SCREEN -->
+    <div class="screen" id="level4Screen">
+        <div class="container scroll-area" style="flex: 1;">
+            <button class="btn btn-secondary btn-small" onclick="app.backToHome()" style="width: auto; margin-top: 8px;">← Back</button>
+
+            <div class="header" style="margin-top: 16px;">
+                <h1>Level 4: Full STAR Delivery</h1>
+                <p id="questionPrompt">Tell me about yourself</p>
+            </div>
+
+            <div id="voiceArea">
+                <!-- Voice recording UI populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- GENERAL PRACTICE SCREEN -->
+    <div class="screen" id="generalPracticeScreen">
+        <div class="container scroll-area" style="flex: 1;">
+            <button class="btn btn-secondary btn-small" onclick="app.backToHome()" style="width: auto; margin-top: 8px;">← Back</button>
+
+            <div class="header" style="margin-top: 16px;">
+                <h1>Your Stories</h1>
+                <p>Master your background narrative</p>
+            </div>
+
+            <div id="practiceContent">
+                <!-- Content populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- GUIDE SCREEN -->
+    <div class="screen" id="guideScreen">
+        <div class="container scroll-area" style="flex: 1;">
+            <button class="btn btn-secondary btn-small" onclick="app.backToHome()" style="width: auto; margin-top: 8px;">← Back</button>
+
+            <div class="header" style="margin-top: 16px;">
+                <h1>Interview Guide</h1>
+                <p>Everything you need to know</p>
+            </div>
+
+            <div id="guideContent">
+                <!-- Guide content populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="app.goToHome()">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-label">Home</div>
+        </button>
+        <button class="nav-item" onclick="app.goToLevel(1)">
+            <div class="nav-icon">📚</div>
+            <div class="nav-label">Levels</div>
+        </button>
+        <button class="nav-item" onclick="app.goToGeneralPractice()">
+            <div class="nav-icon">🎤</div>
+            <div class="nav-label">Practice</div>
+        </button>
+        <button class="nav-item" onclick="app.openGuide()">
+            <div class="nav-icon">📖</div>
+            <div class="nav-label">Guide</div>
+        </button>
+    </div>
+
+    <script>
+        // ============================================
+        // APP STATE & DATA
+        // ============================================
+
+        const app = {
+            currentScreen: 'home',
+            currentLevel: null,
+            currentQuestion: null,
+            currentStory: null,
+            voiceRecording: null,
+            timerInterval: null,
+            recordingStartTime: null,
+
+            // Spaced Repetition Tracking
+            spaceRepData: {},
+
+            // User Progress
+            levelProgress: {
+                1: { completed: 0, mastered: 0, total: 40, threshold: 0.9, unlocked: true },
+                2: { completed: 0, mastered: 0, total: 20, threshold: 0.85, unlocked: false },
+                3: { completed: 0, mastered: 0, total: 15, threshold: 0.85, unlocked: false },
+                4: { completed: 0, mastered: 0, total: 13, threshold: 3, unlocked: false }, // Need 3+ stars per question
+                5: { completed: 0, mastered: 0, total: 88, threshold: 0, unlocked: false }
+            }
+        };
+
+        // ============================================
+        // LEVEL 1: FOUNDATION RECOGNITION QUESTIONS
+        // ============================================
+
+        const level1Questions = [
+            // TPM Fundamentals
+            { id: 'L1Q1', type: 'mc', text: 'What is the "Triple Constraint" in project management?', options: [
+                { text: 'Scope, Schedule, Cost' },
+                { text: 'Scope, Schedule, Quality' },
+                { text: 'Schedule, Cost, Resources' },
+                { text: 'Scope, Budget, Timeline' }
+            ], correct: 0, explanation: 'The Iron Triangle: you can optimize for any two, but picking all three creates unrealistic expectations.' },
+
+            { id: 'L1Q2', type: 'tf', text: 'Phase-Gate processes are only useful for hardware projects, not software.', correct: false, explanation: 'Phase-Gate applies to any complex, multi-team program—hardware, software, mixed. It\'s about discipline and decision points.' },
+
+            { id: 'L1Q3', type: 'mc', text: 'In Critical Path Analysis, what does the "critical path" represent?', options: [
+                { text: 'The longest sequence of dependent activities' },
+                { text: 'The shortest sequence of activities' },
+                { text: 'The path with the most risk' },
+                { text: 'The path with the lowest cost' }
+            ], correct: 0, explanation: 'Critical Path = longest duration to project completion. Delay any critical task = project delay.' },
+
+            { id: 'L1Q4', type: 'mc', text: 'What is a Risk Register used for?', options: [
+                { text: 'Documenting identified risks, owners, mitigation plans, and status' },
+                { text: 'Tracking all project expenses' },
+                { text: 'Recording team member feedback' },
+                { text: 'Listing all project dependencies' }
+            ], correct: 0, explanation: 'A Risk Register is your living document of what could go wrong, who owns it, and what you\'re doing about it.' },
+
+            { id: 'L1Q5', type: 'mc', text: 'RACI stands for:', options: [
+                { text: 'Responsible, Accountable, Consulted, Informed' },
+                { text: 'Resources, Approval, Communication, Implementation' },
+                { text: 'Requirements, Architecture, Code, Integration' },
+                { text: 'Risk, Activity, Criteria, Impact' }
+            ], correct: 0, explanation: 'RACI is your role clarity matrix. R does the work. A is answerable. C gives input. I gets updates.' },
+
+            { id: 'L1Q6', type: 'tf', text: 'FMEA (Failure Mode & Effects Analysis) focuses on identifying what can fail and designing it out early.', correct: true, explanation: 'FMEA = proactive risk discipline. Identify failure modes, effects, and root causes before they become problems.' },
+
+            { id: 'L1Q7', type: 'mc', text: 'What are OKRs?', options: [
+                { text: 'Objectives and Key Results—strategic goals with measurable outcomes' },
+                { text: 'Operations, Key Reports' },
+                { text: 'Optimized Key Resources' },
+                { text: 'Organizational Key Requirements' }
+            ], correct: 0, explanation: 'OKRs = North Star. Objectives inspire; Key Results measure. They align teams and focus execution.' },
+
+            { id: 'L1Q8', type: 'tf', text: 'A "Program Cadence" is optional—most programs can manage without it.', correct: false, explanation: 'Cadence is non-negotiable. Weekly standups, bi-weekly reviews, monthly steering—it\'s the drumbeat that keeps everyone aligned.' },
+
+            { id: 'L1Q9', type: 'mc', text: 'Scope Creep occurs when:', options: [
+                { text: 'Undocumented requirements or changes expand the program without time/resource adjustment' },
+                { text: 'The team is moving too slowly' },
+                { text: 'The budget increases' },
+                { text: 'New team members join the program' }
+            ], correct: 0, explanation: 'Scope Creep = death of a thousand cuts. You need a change control process and the courage to say no.' },
+
+            { id: 'L1Q10', type: 'mc', text: 'Dependency Management is critical because:', options: [
+                { text: 'Unmanaged dependencies create scheduling risk and can block critical path' },
+                { text: 'It helps the team socialize better' },
+                { text: 'It reduces the number of meetings' },
+                { text: 'It automatically fixes technical problems' }
+            ], correct: 0, explanation: 'Dependencies are constraint chains. Miss one, cascade of delays. You own the dependency map.' },
+
+            // Google-Specific
+            { id: 'L1Q11', type: 'mc', text: 'What does "Googleyness" mean at Google?', options: [
+                { text: 'Intellectual humility, self-directed growth, comfort with ambiguity, collaboration' },
+                { text: 'Working fast and shipping products' },
+                { text: 'Knowing Google products deeply' },
+                { text: 'Having a CS degree from a top school' }
+            ], correct: 0, explanation: 'Googleyness = culture fit. You learn, adapt, work cross-functionally, and assume good intent. It\'s non-negotiable.' },
+
+            { id: 'L1Q12', type: 'tf', text: 'An L5 and L6 TPM at Google have identical scope and expectations.', correct: false, explanation: 'L5 = strong IC managing a program. L6 = leads across programs, sets direction, influences org-level decisions.' },
+
+            { id: 'L1Q13', type: 'mc', text: 'What are the "RRK" competencies for a TPM?', options: [
+                { text: 'Rigor, Reach, Kindness (character, influence scope, collaboration)' },
+                { text: 'Requirements, Resources, Knowledge' },
+                { text: 'Risk, Reporting, Kilos' },
+                { text: 'Roadmap, Revenue, KPIs' }
+            ], correct: 0, explanation: 'RRK = Rigor (technical depth), Reach (org influence), Kindness (servant leadership). All three matter at L6.' },
+
+            { id: 'L1Q14', type: 'tf', text: 'Behavioral interview questions are more important at L6 than hypothetical scenarios.', correct: false, explanation: 'Both matter. Behavioral shows judgment from past decisions. Hypothetical shows how you\'d handle new situations. You need both.' },
+
+            // Technical Terms
+            { id: 'L1Q15', type: 'mc', text: 'What is SPC in manufacturing?', options: [
+                { text: 'Statistical Process Control—monitoring production variability with control limits' },
+                { text: 'Strategic Production Cost' },
+                { text: 'Supply Process Control' },
+                { text: 'Standard Process Capability' }
+            ], correct: 0, explanation: 'SPC = early warning system. If a process drifts beyond control limits, you catch it before scrap/yield loss.' },
+
+            { id: 'L1Q16', type: 'mc', text: 'EVT, DVT, PVT stand for:', options: [
+                { text: 'Engineering, Design, Production Validation/Test phases' },
+                { text: 'Expected Value, Design Threshold, Product Version Type' },
+                { text: 'Electronic, Digital, Physical Validation Tiers' },
+                { text: 'Early View Testing, Design Variation Test, Product Validation Test' }
+            ], correct: 0, explanation: 'Hardware program flow: EVT (does it work?), DVT (does it work consistently?), PVT (can we manufacture it?).' },
+
+            { id: 'L1Q17', type: 'tf', text: 'DFM (Design for Manufacturing) considerations should only happen after design is complete.', correct: false, explanation: 'DFM must be baked in from the start. Design with manufacturing constraints in mind = lower cost, higher yield, faster ramp.' },
+
+            { id: 'L1Q18', type: 'mc', text: 'TRL stands for:', options: [
+                { text: 'Technology Readiness Level—maturity scale from concept (1) to deployed (9)' },
+                { text: 'Total Resource Load' },
+                { text: 'Technical Review List' },
+                { text: 'Timeline Requirements Log' }
+            ], correct: 0, explanation: 'TRL is a maturity scale. TRL 1 = wild idea. TRL 9 = proven in production. You need to land a program at TRL 8+ to ship.' },
+
+            { id: 'L1Q19', type: 'mc', text: 'A BOM (Bill of Materials) documents:', options: [
+                { text: 'All components, quantities, and cost for a product' },
+                { text: 'Budget and operating margins' },
+                { text: 'Business overview and management' },
+                { text: 'Product backlog and milestones' }
+            ], correct: 0, explanation: 'BOM = complete parts list. Cost, sourcing, lead time, reliability—all driven by BOM.' },
+
+            // More Fundamentals
+            { id: 'L1Q20', type: 'mc', text: 'What is "intellectual honesty" in the context of program leadership?', options: [
+                { text: 'Surfacing bad news early, not sugarcoating risks, and owning mistakes' },
+                { text: 'Having a high IQ' },
+                { text: 'Publishing research papers' },
+                { text: 'Asking lots of questions in meetings' }
+            ], correct: 0, explanation: 'Intellectual honesty = trust builder. If you hide bad news until it\'s catastrophic, leadership won\'t trust you.' },
+
+            { id: 'L1Q21', type: 'tf', text: 'A TPM should defer technical decisions to engineers and avoid weighing in on design trade-offs.', correct: false, explanation: 'Wrong. A strong TPM understands the technical landscape, asks good questions, and helps surface the right trade-offs for leadership to decide.' },
+
+            { id: 'L1Q22', type: 'mc', text: 'What is the primary role of a TPM on a program?', options: [
+                { text: 'Synthesize information, reduce risk, drive clarity and alignment across teams' },
+                { text: 'Write code and design features' },
+                { text: 'Approve all technical decisions' },
+                { text: 'Manage the project schedule like a Gantt chart tool' }
+            ], correct: 0, explanation: 'TPM = translator and risk-owning synthesizer. You make it easy for teams to execute by removing friction and surfacing gotchas.' },
+
+            { id: 'L1Q23', type: 'tf', text: 'Stakeholder management is less important than technical competence for a TPM.', correct: false, explanation: 'Both are non-negotiable. You need technical credibility AND the ability to influence people who don\'t report to you.' },
+
+            { id: 'L1Q24', type: 'mc', text: 'Which is a key attribute of a strong TPM culture?', options: [
+                { text: 'Psychological safety, clear ownership, fast decision-making, transparency about risk' },
+                { text: 'Perfect execution, no errors, rapid schedules' },
+                { text: 'Minimal meetings, maximum coding' },
+                { text: 'All decisions made by leadership, no input from ICs' }
+            ], correct: 0, explanation: 'Strong TPM culture = people trust each other enough to surface problems early and solve them together.' },
+
+            // More Google-Specific
+            { id: 'L1Q25', type: 'mc', text: 'At Google, what is "context not control"?', options: [
+                { text: 'Leaders set the goal and constraints; teams own the execution path' },
+                { text: 'Micromanagement is always preferred' },
+                { text: 'No leadership involvement in execution' },
+                { text: 'Control the budget, ignore the plan' }
+            ], correct: 0, explanation: 'Context not control = Google\'s leadership model. Give teams clarity on the "why" and constraints; let them figure out the "how."' },
+
+            { id: 'L1Q26', type: 'tf', text: 'A TPM at L6 should be focused primarily on their individual program\'s success, not org-level strategy.', correct: false, explanation: 'L6 is strategic. You think about portfolio, org capability gaps, process creation, and cross-program alignment.' },
+
+            { id: 'L1Q27', type: 'mc', text: 'What is a "gates" or "tollgate" in a Phase-Gate process?', options: [
+                { text: 'Decision points where leadership reviews progress and gates next phase' },
+                { text: 'Physical doors in the office' },
+                { text: 'Technical documentation gates' },
+                { text: 'Team training milestones' }
+            ], correct: 0, explanation: 'Gates = decision theaters. Go/no-go/pivot. No gate = no clarity on whether you should keep investing.' },
+
+            // Risk & Trade-offs
+            { id: 'L1Q28', type: 'mc', text: 'In a trade matrix, what do you do when there\'s no dominant option?', options: [
+                { text: 'Surface the ambiguity to leadership; they own the trade-off decision' },
+                { text: 'Pick arbitrarily and move forward' },
+                { text: 'Ask the team to vote' },
+                { text: 'Delay the decision indefinitely' }
+            ], correct: 0, explanation: 'Your job: make the trade-off explicit and transparent. Leadership decides the priorities. You synthesize and surface.' },
+
+            { id: 'L1Q29', type: 'tf', text: 'Schedule risk is the same as technical risk.', correct: false, explanation: 'Technical risk = will it work? Schedule risk = will we finish on time? Both matter; both need mitigation.' },
+
+            { id: 'L1Q30', type: 'mc', text: 'What is a "red flag" in program planning?', options: [
+                { text: 'An unmitigated high-risk item with no owner or plan' },
+                { text: 'Any task that takes more than 2 weeks' },
+                { text: 'A feature request from engineering' },
+                { text: 'Budget spent ahead of schedule' }
+            ], correct: 0, explanation: 'Red flag = something you can\'t or won\'t face. Own it. Don\'t hide it. The longer you hide it, the worse it gets.' },
+
+            // Execution
+            { id: 'L1Q31', type: 'mc', text: 'How should a TPM handle a missed milestone?', options: [
+                { text: 'Immediately surface the miss, quantify the impact, propose recovery plan' },
+                { text: 'Hope no one notices and catch up later' },
+                { text: 'Blame the team' },
+                { text: 'Change the definition of the milestone' }
+            ], correct: 0, explanation: 'Misses happen. How you respond matters. Transparency + ownership + recovery = leadership trust.' },
+
+            { id: 'L1Q32', type: 'tf', text: 'Optimism is always good in program planning.', correct: false, explanation: 'Optimism untempered by rigor = disaster. Use data, historical trends, and buffer planning (not hope).' },
+
+            { id: 'L1Q33', type: 'mc', text: 'What is "program health"?', options: [
+                { text: 'Schedule variance, technical risk status, team morale, stakeholder confidence' },
+                { text: 'Team attendance' },
+                { text: 'Budget spent' },
+                { text: 'Number of features shipped' }
+            ], correct: 0, explanation: 'Health = holistic. On time but demoralized? Unhealthy. On budget but high technical risk? Unhealthy.' },
+
+            { id: 'L1Q34', type: 'mc', text: 'Which principle is most important in hardware program leadership?', options: [
+                { text: 'Eat your own dog food—stay close to the product, validate assumptions early, iterate' },
+                { text: 'Avoid prototypes, go straight to production' },
+                { text: 'Delegate all technical work' },
+                { text: 'Plan everything upfront, never change the plan' }
+            ], correct: 0, explanation: 'Eating dog food = you test early, find problems, iterate. You don\'t rely on second-hand data.' },
+
+            { id: 'L1Q35', type: 'tf', text: 'A TPM at Google is expected to code.', correct: false, explanation: 'No. But you need to understand code, systems, and architecture. You don\'t need to write production code.' },
+
+            { id: 'L1Q36', type: 'mc', text: 'What is a "program runbook"?', options: [
+                { text: 'Documented processes, escalation paths, decision frameworks for recurring topics' },
+                { text: 'A book about programs to read' },
+                { text: 'The project schedule' },
+                { text: 'Team training manual' }
+            ], correct: 0, explanation: 'Runbook = how we do things. Who decides X? When do we escalate Y? It builds institutional knowledge.' },
+
+            { id: 'L1Q37', type: 'mc', text: 'In a conflict between two teams, what should a TPM do?', options: [
+                { text: 'Understand both perspectives, surface the root issue, help teams align on a path forward' },
+                { text: 'Immediately side with the louder team' },
+                { text: 'Escalate to leadership and let them decide' },
+                { text: 'Stay neutral and don\'t get involved' }
+            ], correct: 0, explanation: 'You\'re not a judge. You\'re a peacemaker. Understand the real issue, not just the stated positions.' },
+
+            { id: 'L1Q38', type: 'mc', text: 'What makes an effective TPM weekly standup?', options: [
+                { text: 'Status clarity, risk escalation, decision-making, quick cadence (30 min max)' },
+                { text: 'Talking for an hour straight' },
+                { text: 'Only discussing good news' },
+                { text: 'Waiting until the end of the week to surface problems' }
+            ], correct: 0, explanation: 'Standup = pulse check. Status quick. Red flags up front. Decisions made. Next steps clear.' },
+
+            { id: 'L1Q39', type: 'tf', text: 'Process overhead is always bad; minimize it whenever possible.', correct: false, explanation: 'Some overhead is tax paid for clarity. The right amount prevents chaos. Too much kills velocity. Balance is the art.' },
+
+            { id: 'L1Q40', type: 'mc', text: 'What is the difference between a TPM and a project manager?', options: [
+                { text: 'TPM owns technical trade-offs and program strategy; PM focuses on timeline/resource mgmt' },
+                { text: 'No difference; they\'re the same role' },
+                { text: 'TPM is more senior' },
+                { text: 'PM handles software, TPM handles hardware' }
+            ], correct: 0, explanation: 'TPM = strategic technical synthesizer. PM = operational execution manager. (Reality: at Google they blend more.)'  }
+        ];
+
+        // ============================================
+        // LEVEL 2: EXPERIENCE RETRIEVAL QUESTIONS
+        // ============================================
+
+        const level2Stories = [
+            {
+                id: 'story1',
+                title: 'Spatial Dimming: Whiteboard to Shipped Product',
+                company: 'Magic Leap',
+                keyDetails: [
+                    'Owned spatial dimming program from concept to ML2 production',
+                    'Drove EVT/DVT/PVT phases with vendor and internal validation',
+                    'Championed the program through executive pressure and budget constraints',
+                    'Delivered on conference deadline by managing critical path and dependencies'
+                ]
+            },
+            {
+                id: 'story2',
+                title: 'MEMS Display: Leading a Program to a Kill Decision',
+                company: 'Magic Leap',
+                keyDetails: [
+                    'Led technology down-select with 40+ dimension trade matrix',
+                    'Surfaced technical and schedule risk differential vs competing approaches',
+                    'Made intellectual-honesty case for killing the program vs forcing a technology mismatch',
+                    'Used data to recommend LCoS over MEMS despite team emotional attachment'
+                ]
+            },
+            {
+                id: 'story3',
+                title: 'Dual-Vendor Strategy for Spatial Dimming',
+                company: 'Magic Leap',
+                keyDetails: [
+                    'Identified single-vendor supply chain risk early',
+                    'Ran parallel qualification tracks with two suppliers',
+                    'Negotiated cost and lead time trade-offs',
+                    'De-risked production ramp by having backup capacity'
+                ]
+            },
+            {
+                id: 'story4',
+                title: 'Convincing the CEO to Keep Spatial Dimming Alive',
+                company: 'Magic Leap',
+                keyDetails: [
+                    'Program was at kill decision point due to technical and budget pressure',
+                    'Built comprehensive safety case and waveguide-performance analysis',
+                    'Reframed narrative from "risky tech experiment" to "proven with data"',
+                    'Secured continued executive investment through intellectual honesty and clarity'
+                ]
+            },
+            {
+                id: 'story5',
+                title: 'Coating Machine Resource Conflict',
+                company: 'Axsun',
+                keyDetails: [
+                    'Needed access to resource-constrained coating machine for development',
+                    'Applied reciprocity principle: invested in their priorities first',
+                    'Built influence without authority through collaboration',
+                    'Secured collaborative scheduling and consistent access'
+                ]
+            },
+            {
+                id: 'story6',
+                title: 'Global Dimming: Applying a Proven Playbook',
+                company: 'Snap',
+                keyDetails: [
+                    'Took spatial dimming methodology from Magic Leap and adapted for Snap glasses',
+                    'Demonstrated portable methodology value across companies',
+                    'Made scope judgment: global dimming vs spatial—chose global',
+                    'Delivered faster by applying proven processes and vendor relationships'
+                ]
+            },
+            {
+                id: 'story7',
+                title: 'Display Technology Portfolio Review',
+                company: 'Snap',
+                keyDetails: [
+                    'Conducted strategic assessment of TI DLP vs LCoS vs micro-LED',
+                    'Analyzed performance, cost, and maturity trade-offs',
+                    'Informed portfolio strategy for next-gen AR glasses',
+                    'Built exec-level business case for technology recommendations'
+                ]
+            },
+            {
+                id: 'story8',
+                title: 'Building the Vision Science Function from Zero',
+                company: 'Snap',
+                keyDetails: [
+                    'Identified organizational capability gap: no human vision expertise',
+                    'Wrote a business case white paper advocating for the function',
+                    'Pitched to executive team and secured charter',
+                    'Personally recruited founding team; hired top vision scientists'
+                ]
+            },
+            {
+                id: 'story9',
+                title: 'Unifying the Rx Lens Strategy',
+                company: 'Meta',
+                keyDetails: [
+                    'Served as system integrator across Meta\'s four glasses products',
+                    'Unified four separate Rx approaches into coherent portfolio strategy',
+                    'Created "four pillars" framework: optical, mechanical, materials, software',
+                    'Aligned 8+ cross-functional teams around common platform'
+                ]
+            },
+            {
+                id: 'story10',
+                title: 'Making Rx a First-Class Development Track',
+                company: 'Meta',
+                keyDetails: [
+                    'Recognized Rx was treated as afterthought vs mainstream dev',
+                    'Built PDP (Product Development Process) readiness checklist',
+                    'Implemented FCalVal (final calibration and validation) gates',
+                    'Created formalized process that elevated Rx to same rigor as core product'
+                ]
+            }
+        ];
+
+        const level2Questions = [
+            { id: 'L2Q1', prompt: 'Tell me about a time you managed vendor risk.', stories: ['story3', 'story5', 'story2'], correctStory: 'story3', keyBeats: ['Identified supply risk early', 'Parallel qualification tracks', 'De-risked production ramp'] },
+            { id: 'L2Q2', prompt: 'Describe a time you had to make a tough decision to kill or pivot a major program.', stories: ['story2', 'story4', 'story6'], correctStory: 'story2', keyBeats: ['Technology down-select', '40+ dimension trade matrix', 'Kill decision with data'] },
+            { id: 'L2Q3', prompt: 'Tell me about a time you influenced an executive decision without direct authority.', stories: ['story4', 'story8', 'story9'], correctStory: 'story4', keyBeats: ['Built safety case', 'CEO conversation', 'Data-driven reframing'] },
+            { id: 'L2Q4', prompt: 'Walk me through a time you took a program from concept to production.', stories: ['story1', 'story6', 'story10'], correctStory: 'story1', keyBeats: ['Whiteboard to ML2', 'EVT/DVT/PVT phases', 'Conference deadline'] },
+            { id: 'L2Q5', prompt: 'Describe a time you identified a critical capability gap and built the case to fill it.', stories: ['story8', 'story9', 'story7'], correctStory: 'story8', keyBeats: ['Org gap: no vision scientists', 'White paper business case', 'Recruited founding team'] },
+            { id: 'L2Q6', prompt: 'Tell me about a time you used influence without authority to solve a resource problem.', stories: ['story5', 'story1', 'story3'], correctStory: 'story5', keyBeats: ['Reciprocity principle', 'Coating machine access', 'Built collaborative relationship'] },
+            { id: 'L2Q7', prompt: 'Walk me through a time you unified cross-functional teams around a shared vision.', stories: ['story9', 'story8', 'story4'], correctStory: 'story9', keyBeats: ['Four product families', 'Four pillars framework', '8+ teams aligned'] },
+            { id: 'L2Q8', prompt: 'Describe a time you applied a proven methodology in a new context.', stories: ['story6', 'story1', 'story3'], correctStory: 'story6', keyBeats: ['Spatial dimming playbook', 'Snap glasses adaptation', 'Faster delivery'] },
+            { id: 'L2Q9', prompt: 'Tell me about a time you conducted a strategic technology assessment.', stories: ['story7', 'story2', 'story9'], correctStory: 'story7', keyBeats: ['DLP vs LCoS vs micro-LED', 'Portfolio strategy', 'Business case'] },
+            { id: 'L2Q10', prompt: 'Walk me through a time you created a process or governance to scale a function.', stories: ['story10', 'story8', 'story4'], correctStory: 'story10', keyBeats: ['Rx afterthought', 'PDP readiness checklist', 'FCalVal gates'] },
+            { id: 'L2Q11', prompt: 'Tell me about a time you managed competing priorities across teams.', stories: ['story5', 'story9', 'story1'], correctStory: 'story9', keyBeats: ['Four product families with different needs', 'Unified framework', 'Aligned trade-offs'] },
+            { id: 'L2Q12', prompt: 'Describe a time you had to be intellectually honest about a difficult reality.', stories: ['story2', 'story4', 'story7'], correctStory: 'story2', keyBeats: ['Recommended kill despite attachment', 'Data-driven case', 'Technical risk was real'] },
+            { id: 'L2Q13', prompt: 'Walk me through a time you built team capability in a new area.', stories: ['story8', 'story10', 'story6'], correctStory: 'story8', keyBeats: ['No vision science expertise', 'Hired top talent', 'Built function from scratch'] },
+            { id: 'L2Q14', prompt: 'Tell me about a time you navigated supply chain complexity.', stories: ['story3', 'story6', 'story1'], correctStory: 'story3', keyBeats: ['Dual-vendor strategy', 'Parallel qualification', 'Cost/lead-time trade-offs'] },
+            { id: 'L2Q15', prompt: 'Describe a time you had to say no to a feature or scope request.', stories: ['story2', 'story6', 'story4'], correctStory: 'story2', keyBeats: ['Program didn\'t match tech maturity', 'Recommended pivot', 'Scope reset'] },
+            { id: 'L2Q16', prompt: 'Tell me about a time you delivered on an aggressive timeline.', stories: ['story1', 'story6', 'story10'], correctStory: 'story1', keyBeats: ['Conference deadline', 'Critical path managed', 'EVT/DVT/PVT delivered on schedule'] },
+            { id: 'L2Q17', prompt: 'Walk me through a time you set strategic direction for a team or function.', stories: ['story8', 'story9', 'story7'], correctStory: 'story9', keyBeats: ['Four pillars framework', 'Portfolio-level decision', 'Cross-team alignment'] },
+            { id: 'L2Q18', prompt: 'Describe a time you had to pivot or adapt your plan based on new information.', stories: ['story6', 'story2', 'story4'], correctStory: 'story6', keyBeats: ['Applied playbook to new context', 'Made scope judgment', 'Faster delivery'] },
+            { id: 'L2Q19', prompt: 'Tell me about a time you built trust with a partner team that was initially skeptical.', stories: ['story5', 'story8', 'story9'], correctStory: 'story5', keyBeats: ['Reciprocity principle', 'Invested in their priorities', 'Earned access'] },
+            { id: 'L2Q20', prompt: 'Walk me through a time you had to communicate complexity in a clear, compelling way.', stories: ['story4', 'story9', 'story7'], correctStory: 'story4', keyBeats: ['Safety case to CEO', 'Reframed narrative', 'Data told the story'] }
+        ];
+
+        // ============================================
+        // LEVEL 3: TPM REFRAMING QUESTIONS
+        // ============================================
+
+        const level3Questions = [
+            { id: 'L3Q1', engineer: 'I designed the MEMS mirror and ran the experiments', tpm: 'I owned the program plan for the next-gen MEMS platform, identified the critical path through design and coating, and drove the team to deliver on the conference deadline' },
+            { id: 'L3Q2', engineer: 'I told them spatial dimming was better', tpm: 'I built the technical case connecting waveguide artifacts and safety risk to the product requirement, presented it to the CEO, and secured continued investment' },
+            { id: 'L3Q3', engineer: 'I talked to vendors about dimming components', tpm: 'I led a structured vendor survey across 5 global suppliers, ran parallel qualification tracks, and implemented a dual-vendor strategy to de-risk the supply chain' },
+            { id: 'L3Q4', engineer: 'I worked on prescription lenses at Meta', tpm: 'I served as the system integrator for Rx lens strategy across Meta\'s four-product glasses portfolio, creating the unified framework that aligned 8+ cross-functional teams' },
+            { id: 'L3Q5', engineer: 'I set up SPC on the coating machine', tpm: 'I identified a gap in our quality governance—no statistical process control on critical fabrication steps—and implemented monitoring with control limits and automated drift alerts' },
+            { id: 'L3Q6', engineer: 'I helped the coating team with their production runs', tpm: 'I used the reciprocity principle to build influence with a resource-constrained partner team, investing in their priorities to earn collaborative scheduling for development' },
+            { id: 'L3Q7', engineer: 'I figured out that MEMS wouldn\'t work and recommended LCoS', tpm: 'I led the technology down-select using a 40+ dimension trade matrix, surfaced that MEMS carried High technical and schedule risk vs Medium for LCoS, and recommended the kill decision at the global technology summit' },
+            { id: 'L3Q8', engineer: 'I wrote a paper about why Snap needed vision scientists', tpm: 'I identified a critical organizational capability gap, built the business case in a white paper, presented to the executive team, secured the charter, and personally recruited the founding team' },
+            { id: 'L3Q9', engineer: 'I managed the timeline for the dimming program', tpm: 'I owned the program schedule with EVT/DVT/PVT gates, identified the critical path across optical design, manufacturing, and validation, and escalated schedule risk when vendor delays threatened the conference deadline' },
+            { id: 'L3Q10', engineer: 'I analyzed different display technologies', tpm: 'I conducted a strategic portfolio assessment of TI DLP, LCoS, and micro-LED, weighing performance maturity, cost per unit, and time-to-market to inform the glasses platform roadmap' },
+            { id: 'L3Q11', engineer: 'I fixed the yield problems on the coating line', tpm: 'I worked with manufacturing to implement statistical process control, established control limits for critical parameters, and created a governance model where process drift triggers immediate escalation' },
+            { id: 'L3Q12', engineer: 'I decided we should use an external optical vendor', tpm: 'I led the build-vs-buy analysis, evaluated vendor capability, supply chain risk, and time-to-market impact, and built the business case to leadership for outsourcing this critical component' },
+            { id: 'L3Q13', engineer: 'I talked to the engineering team about their concerns', tpm: 'I ran a structured risk workshop to surface technical concerns, built a risk register with mitigations, and created a communication plan to keep leadership informed of status' },
+            { id: 'L3Q14', engineer: 'The product worked in the lab', tpm: 'I owned the transition from DVT (design validated in controlled environments) to PVT (production-ready, manufacturing-validated), ensuring we had solved not just technical challenges but manufacturing and supply chain ones' },
+            { id: 'L3Q15', engineer: 'I coordinated with multiple teams on the Rx project', tpm: 'I synthesized input from optics, mechanical, materials, and software teams into a unified Rx strategy, created a decision framework (four pillars), and ran cross-functional reviews to ensure alignment' }
+        ];
+
+        // ============================================
+        // LEVEL 4: VOICE DELIVERY QUESTIONS
+        // ============================================
+
+        const level4Questions = [
+            { id: 'L4Q1', category: 'behavioral', question: 'Tell me about yourself / walk me through your background', timingTarget: 90, rubric: ['Clear narrative arc', 'TPM framing (not engineer)', 'Scope and scale mentioned', 'Ending with vision for future'], tips: 'Hit 90 seconds. Start with education/early work. Progress to leadership moments. Land on the throughline: technical depth + program leadership.' },
+            { id: 'L4Q2', category: 'behavioral', question: 'Why did you leave Meta?', timingTarget: 60, rubric: ['Short and honest', 'No defensiveness', 'Pivot forward to Google', 'Org restructuring, not performance'], tips: 'Keep it simple. "Restructuring, not performance." Move to excitement about Google\'s XR effort. Done.' },
+            { id: 'L4Q3', category: 'behavioral', question: 'Tell me about a time you managed a complex hardware program from concept to production', timingTarget: 150, rubric: ['Situation: what was the program?', 'Task: what was your role?', 'Action: what did you specifically own?', 'Result: shipped on time/budget/quality?'], tips: 'This is Spatial Dimming. STAR structure. Emphasize: phase gates, vendor management, risk mitigation, executive influence.' },
+            { id: 'L4Q4', category: 'behavioral', question: 'Tell me about a time you influenced a decision without direct authority', timingTarget: 150, rubric: ['Clear power dynamic', 'Your influence lever', 'How you built trust/data', 'Outcome and impact'], tips: 'Coating Machine (Axsun) or CEO (Spatial Dimming). First shows peer influence; second shows executive influence. Either works.' },
+            { id: 'L4Q5', category: 'behavioral', question: 'Tell me about a time you navigated a significant stakeholder conflict', timingTarget: 150, rubric: ['Conflict clearly defined', 'Your listening and synthesis', 'Path forward you proposed', 'Outcome and team health'], tips: 'Technology down-select (MEMS vs LCoS) had stakeholder conflict. Use this to show: intellectual honesty, data-driven, ego-free.' },
+            { id: 'L4Q6', category: 'behavioral', question: 'Tell me about a failure or a time you had to kill a project', timingTarget: 150, rubric: ['Own the decision', 'Data and reasoning', 'No blame-shifting', 'What you learned'], tips: 'Killing MEMS program. Show: you had data, you made the intellectual honesty case, you owned it, no regrets.' },
+            { id: 'L4Q7', category: 'behavioral', question: 'Tell me about a time you identified and drove a process improvement', timingTarget: 150, rubric: ['Problem clearly identified', 'Why existing process was broken', 'Solution you designed', 'Adoption and impact'], tips: 'Rx PDP readiness checklist. Show: you saw the gap, built the case, got buy-in, implemented, measured impact.' },
+            { id: 'L4Q8', category: 'behavioral', question: 'Tell me about a time you had to communicate bad news to executive leadership', timingTarget: 150, rubric: ['Bad news was real and material', 'How you framed it', 'Recovery plan you proposed', 'Leadership confidence in you'], tips: 'Spatial Dimming was at kill decision. You had the data, you were honest, you proposed a path. That\'s how you handle bad news.' },
+            { id: 'L4Q9', category: 'behavioral', question: 'Tell me about a time you built something from scratch — a team, a process, a program', timingTarget: 150, rubric: ['What was missing', 'How you identified the need', 'What you built', 'Impact and scaling'], tips: 'Vision Science function at Snap. Start with gap analysis. Move to white paper. Land on recruiting and building the team.' },
+            { id: 'L4Q10', category: 'behavioral', question: 'How do you establish trust with engineering teams as a TPM?', timingTarget: 120, rubric: ['Deep technical understanding', 'Reciprocity and respect for their constraints', 'Transparent communication', 'Track record of delivery'], tips: 'Show: you understand the tech landscape, you respect their expertise, you don\'t BS them, you deliver on your commitments.' },
+            { id: 'L4Q11', category: 'hypothetical', question: 'You join Google\'s XR team and find three overlapping display programs with no coordination. What do you do?', timingTarget: 180, rubric: ['First: listen and understand', 'Identify the root cause (org, tech, or both)', 'Propose a synthesis path', 'Address the human side'], tips: 'This is your Rx story. Synthesize, don\'t dictate. Create a framework. Get buy-in. Scale it.' },
+            { id: 'L4Q12', category: 'hypothetical', question: 'Three months before DVT, your display vendor says they can\'t meet the brightness spec. Walk me through your response.', timingTarget: 180, rubric: ['Immediate: triage and understand', 'Parallel: technical solutions + vendor alternatives', 'Timeline impact and risk escalation', 'Decision framework for next steps'], tips: 'This is vendor risk mgmt. Show: you have a playbook, you stay calm, you surface options, you don\'t panic.' },
+            { id: 'L4Q13', category: 'hypothetical', question: 'Software wants to iterate fast; hardware has a fixed tape-out date. How do you handle the tension?', timingTarget: 150, rubric: ['Understand both constraints', 'Propose a phase gate or interface', 'Trade-offs you\'d explore', 'How you\'d get alignment'], tips: 'This is scope management and stakeholder alignment. Show: you get both sides, you find a middle path, you make decisions.' },
+            { id: 'L4Q14', category: 'googleyness', question: 'What does Googleyness mean to you?', timingTarget: 120, rubric: ['Intellectual humility', 'Comfort with ambiguity', 'Collaboration across orgs', 'Learning mindset'], tips: 'Avoid platitudes. Give a real example from your life: a time you were wrong, learned fast, adapted.' },
+            { id: 'L4Q15', category: 'googleyness', question: 'Tell me about a time you had to be comfortable with ambiguity', timingTarget: 150, rubric: ['Real ambiguity described', 'How you navigated it', 'What you learned', 'What changed as you learned more'], tips: 'Any story works. The point: you don\'t need perfect information to move forward. You iterate.' }
+        ];
+
+        // ============================================
+        // GENERAL PRACTICE TARGETS
+        // ============================================
+
+        const generalPracticeTargets = [
+            {
+                name: 'Tell me about yourself (Background)',
+                target: 'I\'m a physicist-turned-hardware-program-leader with 15 years spanning the full AR/XR stack. I started at Axsun where I owned the MEMS product portfolio for medical imaging — five product lines, concept to production. At Magic Leap, I led two major programs: a MEMS display effort where I drove a rigorous technology down-select, and the spatial dimming program which I took from whiteboard concept to shipped product in ML2 — including saving it from cancellation by building the safety case to the CEO. At Snap, I set the strategic direction for the AR glasses display portfolio and built the vision science team from zero. Most recently at Meta, I was the system integrator for prescription lens strategy across their entire glasses portfolio. The through-line is that I combine deep technical depth in optics and displays with program leadership at scale — and I\'m looking to bring that to Google\'s XR hardware effort where the problems are exactly in my wheelhouse.',
+                timing: 90
+            },
+            {
+                name: 'Why Google?',
+                target: 'Google\'s XR hardware effort is at the stage where deep technical judgment and program discipline both matter — you\'re building real products, not research demos. My experience shipping AR hardware at Magic Leap and Snap, combined with my portfolio-level thinking at Meta, maps directly to what this team needs. I want to be at a company where the scale of ambition matches the resources to execute.',
+                timing: 60
+            },
+            {
+                name: 'Why did you leave Meta?',
+                target: 'Meta went through a restructuring and my role was impacted. It wasn\'t performance-related — I was actively delivering the Rx lens strategy across four product families. These things happen in large organizations. The timing worked out because Google\'s XR effort is exactly where I want to be.',
+                timing: 60
+            }
+        ];
+
+        // ============================================
+        // UI INITIALIZATION
+        // ============================================
+
+        function initializeApp() {
+            renderHome();
+            initializeSpeechRecognition();
+        }
+
+        function renderHome() {
+            app.currentScreen = 'home';
+            updateNavigation('home');
+
+            const screen = document.getElementById('homeScreen');
+            screen.classList.add('active');
+            document.getElementById('levelScreen').classList.remove('active');
+            document.getElementById('level4Screen').classList.remove('active');
+            document.getElementById('generalPracticeScreen').classList.remove('active');
+            document.getElementById('guideScreen').classList.remove('active');
+
+            updateReadiness();
+            renderLevelGrid();
+        }
+
+        function updateReadiness() {
+            const levels = app.levelProgress;
+            let totalMastered = 0;
+            let totalQuestions = 0;
+
+            for (let i = 1; i <= 4; i++) {
+                totalMastered += levels[i].mastered;
+                totalQuestions += levels[i].completed;
+            }
+
+            const readinessPercent = totalQuestions > 0 ? Math.round((totalMastered / totalQuestions) * 100) : 0;
+            document.getElementById('readinessValue').textContent = readinessPercent + '%';
+            document.getElementById('readinessFill').style.width = readinessPercent + '%';
+
+            let badge = document.getElementById('statusBadge');
+            if (readinessPercent < 50) {
+                badge.textContent = 'Just Getting Started';
+                badge.className = 'status-badge red';
+            } else if (readinessPercent < 80) {
+                badge.textContent = 'Getting Strong';
+                badge.className = 'status-badge yellow';
+            } else {
+                badge.textContent = 'Ready to Interview';
+                badge.className = 'status-badge green';
+            }
+        }
+
+        function renderLevelGrid() {
+            const grid = document.getElementById('levelGrid');
+            grid.innerHTML = '';
+
+            const levelData = [
+                { num: 1, name: 'Foundation Recognition', icon: '📚', desc: '40 questions' },
+                { num: 2, name: 'Experience Retrieval', icon: '🎯', desc: '20 questions' },
+                { num: 3, name: 'TPM Reframing', icon: '🔄', desc: '15 questions' },
+                { num: 4, name: 'Full STAR Delivery', icon: '🎤', desc: '13 questions' },
+                { num: 5, name: 'Pressure Simulation', icon: '⚡', desc: 'Random timed' }
+            ];
+
+            levelData.forEach(level => {
+                const progress = app.levelProgress[level.num];
+                const isLocked = !progress.unlocked;
+                const isCompleted = progress.completed > 0;
+
+                const card = document.createElement('div');
+                card.className = 'level-card' + (isLocked ? ' locked' : '');
+                card.onclick = () => !isLocked && app.goToLevel(level.num);
+
+                let statusBadge = 'locked';
+                if (progress.unlocked && !isCompleted) statusBadge = 'unlocked';
+                if (isCompleted && progress.completed >= progress.total) statusBadge = 'in-progress';
+
+                card.innerHTML = `
+                    <div class="level-lock" style="display:${isLocked ? 'block' : 'none'}">🔒</div>
+                    <div class="level-card-content">
+                        <div class="level-number">${level.num}</div>
+                        <div class="level-name">${level.name}</div>
+                        <div class="level-progress">${level.desc}</div>
+                        <span class="level-status ${statusBadge}">${isLocked ? 'Locked' : 'Available'}</span>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function goToLevel(levelNum) {
+            app.currentLevel = levelNum;
+            const screen = document.getElementById('levelScreen');
+            document.getElementById('homeScreen').classList.remove('active');
+            document.getElementById('generalPracticeScreen').classList.remove('active');
+            document.getElementById('guideScreen').classList.remove('active');
+            screen.classList.add('active');
+            updateNavigation('level');
+
+            if (levelNum === 1) {
+                renderLevel1();
+            } else if (levelNum === 2) {
+                renderLevel2();
+            } else if (levelNum === 3) {
+                renderLevel3();
+            } else if (levelNum === 4) {
+                renderLevel4();
+            } else if (levelNum === 5) {
+                renderLevel5();
+            }
+        }
+
+        function renderLevel1() {
+            document.getElementById('levelTitle').textContent = 'Level 1: Foundation Recognition';
+            document.getElementById('levelSubtitle').textContent = 'Master TPM fundamentals, technical terms, and Google culture.';
+
+            const progress = app.levelProgress[1];
+            const percentage = progress.completed > 0 ? Math.round((progress.mastered / progress.completed) * 100) : 0;
+            document.getElementById('levelStats').innerHTML = `
+                <strong>Questions Answered:</strong> ${progress.completed} / ${progress.total}<br>
+                <strong>Questions Mastered:</strong> ${progress.mastered}<br>
+                <strong>Current Score:</strong> ${percentage}%<br>
+                <strong>Need 90%+ to unlock Level 2</strong>
+            `;
+
+            const questionArea = document.getElementById('questionArea');
+            const question = level1Questions[Math.floor(Math.random() * level1Questions.length)];
+
+            renderMultipleChoice(question, questionArea, 1);
+        }
+
+        function renderLevel2() {
+            document.getElementById('levelTitle').textContent = 'Level 2: Experience Retrieval';
+            document.getElementById('levelSubtitle').textContent = 'Identify which story to use, recall key details.';
+
+            const progress = app.levelProgress[2];
+            const percentage = progress.completed > 0 ? Math.round((progress.mastered / progress.completed) * 100) : 0;
+            document.getElementById('levelStats').innerHTML = `
+                <strong>Questions Answered:</strong> ${progress.completed} / ${progress.total}<br>
+                <strong>Questions Mastered:</strong> ${progress.mastered}<br>
+                <strong>Current Score:</strong> ${percentage}%<br>
+                <strong>Need 85%+ to unlock Level 3</strong>
+            `;
+
+            const questionArea = document.getElementById('questionArea');
+            const question = level2Questions[Math.floor(Math.random() * level2Questions.length)];
+            renderStorySelection(question, questionArea);
+        }
+
+        function renderLevel3() {
+            document.getElementById('levelTitle').textContent = 'Level 3: TPM Reframing';
+            document.getElementById('levelSubtitle').textContent = 'Reframe engineer-speak into TPM language.';
+
+            const progress = app.levelProgress[3];
+            const percentage = progress.completed > 0 ? Math.round((progress.mastered / progress.completed) * 100) : 0;
+            document.getElementById('levelStats').innerHTML = `
+                <strong>Questions Answered:</strong> ${progress.completed} / ${progress.total}<br>
+                <strong>Questions Mastered:</strong> ${progress.mastered}<br>
+                <strong>Current Score:</strong> ${percentage}%<br>
+                <strong>Need 85%+ to unlock Level 4</strong>
+            `;
+
+            const questionArea = document.getElementById('questionArea');
+            const question = level3Questions[Math.floor(Math.random() * level3Questions.length)];
+            renderReframing(question, questionArea);
+        }
+
+        function renderLevel4() {
+            const screen = document.getElementById('level4Screen');
+            document.getElementById('homeScreen').classList.remove('active');
+            document.getElementById('levelScreen').classList.remove('active');
+            document.getElementById('generalPracticeScreen').classList.remove('active');
+            screen.classList.add('active');
+
+            const progress = app.levelProgress[4];
+            const question = level4Questions[Math.floor(Math.random() * level4Questions.length)];
+
+            document.getElementById('questionPrompt').textContent = question.question;
+
+            const voiceArea = document.getElementById('voiceArea');
+            voiceArea.innerHTML = `
+                <div class="card" style="text-align: center;">
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">${question.timingTarget}s target</p>
+                    <button class="mic-button" id="recordButton" onclick="app.startRecording()">🎤</button>
+                    <p style="color: var(--text-tertiary); font-size: 13px;">Tap to record • Speak clearly • ${question.timingTarget}s target</p>
+                    <div class="timer" id="timer" style="display: none;">0:00</div>
+                    <div class="transcription" id="transcription" style="display: none;"></div>
+                    <div class="buttons-vertical" id="actionButtons" style="display: none;">
+                        <button class="btn btn-secondary" onclick="app.stopRecording()">Stop Recording</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLevel5() {
+            // Pressure simulation - random questions from all levels
+            document.getElementById('levelTitle').textContent = 'Level 5: Pressure Simulation';
+            document.getElementById('levelSubtitle').textContent = 'Timed random questions. No coaching. Real interview feel.';
+
+            const progress = app.levelProgress[5];
+            const percentage = progress.completed > 0 ? Math.round((progress.mastered / progress.completed) * 100) : 0;
+            document.getElementById('levelStats').innerHTML = `
+                <strong>Questions Answered:</strong> ${progress.completed} / ${progress.total}<br>
+                <strong>Current Score:</strong> ${percentage}%<br>
+                <strong>Average Rating:</strong> ${progress.mastered} stars<br>
+                <strong>Readiness: ${percentage}%+</strong>
+            `;
+
+            const questionArea = document.getElementById('questionArea');
+            // Randomly select from mixed pool
+            const allLevelQuestions = [...level1Questions, ...level3Questions];
+            const question = allLevelQuestions[Math.floor(Math.random() * allLevelQuestions.length)];
+
+            if (question.type) {
+                renderMultipleChoice(question, questionArea, 5);
+            } else {
+                renderReframing(question, questionArea);
+            }
+        }
+
+        function renderMultipleChoice(question, container, level) {
+            container.innerHTML = `
+                <div class="question-container">
+                    <div class="question-number">Question</div>
+                    <div class="question-text">${question.text}</div>
+                    <div id="optionsArea"></div>
+                    <div class="buttons-vertical">
+                        <button class="btn btn-secondary" onclick="app.skipQuestion()">Skip Question</button>
+                    </div>
+                </div>
+            `;
+
+            const optionsArea = document.getElementById('optionsArea');
+            question.options.forEach((option, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option';
+                btn.textContent = option.text;
+                btn.onclick = () => app.selectOption(question, idx, level);
+                optionsArea.appendChild(btn);
+            });
+        }
+
+        function selectOption(question, selectedIdx, level) {
+            const correct = selectedIdx === question.correct;
+            const progress = app.levelProgress[level];
+
+            progress.completed++;
+            if (correct) progress.mastered++;
+
+            // Show feedback
+            setTimeout(() => {
+                alert((correct ? '✓ Correct!' : '✗ Incorrect') + '\n\n' + question.explanation);
+                if (level <= 3) {
+                    if (level === 1) renderLevel1();
+                    else if (level === 2) renderLevel2();
+                    else if (level === 3) renderLevel3();
+                    else if (level === 5) renderLevel5();
+                }
+                updateReadiness();
+            }, 100);
+        }
+
+        function renderStorySelection(question, container) {
+            container.innerHTML = `
+                <div class="question-container">
+                    <div class="question-number">Story Selection</div>
+                    <div class="question-text">${question.prompt}</div>
+                    <div id="storyOptions"></div>
+                </div>
+            `;
+
+            const storyOptions = document.getElementById('storyOptions');
+            const stories = question.stories.map(id => level2Stories.find(s => s.id === id));
+
+            stories.forEach((story, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option';
+                btn.innerHTML = `<strong>${story.title}</strong><br><small>${story.company}</small>`;
+                btn.onclick = () => app.selectStory(question, story, idx);
+                storyOptions.appendChild(btn);
+            });
+
+            const skipBtn = document.createElement('button');
+            skipBtn.className = 'btn btn-secondary';
+            skipBtn.textContent = 'Skip Question';
+            skipBtn.style.marginTop = '16px';
+            skipBtn.onclick = () => renderLevel2();
+            container.appendChild(skipBtn);
+        }
+
+        function selectStory(question, selectedStory, selectedIdx) {
+            const correct = selectedStory.id === question.correctStory;
+            const progress = app.levelProgress[2];
+
+            progress.completed++;
+            if (correct) progress.mastered++;
+
+            const correctStory = level2Stories.find(s => s.id === question.correctStory);
+            const feedback = correct ? '✓ Correct!' : '✗ Incorrect. The best story is: ' + correctStory.title;
+
+            alert(feedback + '\n\nKey beats to hit:\n- ' + selectedStory.keyDetails.join('\n- '));
+
+            renderLevel2();
+            updateReadiness();
+        }
+
+        function renderReframing(question, container) {
+            container.innerHTML = `
+                <div class="question-container">
+                    <div class="question-number">Engineer-Speak vs TPM-Speak</div>
+                    <div class="question-text" style="color: var(--text-tertiary); font-size: 14px; margin-bottom: 12px;">Engineer said:</div>
+                    <div class="card" style="background: var(--bg-tertiary); margin-bottom: 16px;">
+                        <p>"${question.engineer}"</p>
+                    </div>
+                    <div class="question-text" style="color: var(--text-tertiary); font-size: 14px; margin-bottom: 12px;">How would you reframe this as a TPM?</div>
+                    <div id="reframedArea"></div>
+                </div>
+            `;
+
+            const reframedArea = document.getElementById('reframedArea');
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-primary';
+            btn.innerHTML = '👁️ Reveal TPM Reframing';
+            btn.onclick = () => app.showReframing(question);
+            reframedArea.appendChild(btn);
+
+            const skipBtn = document.createElement('button');
+            skipBtn.className = 'btn btn-secondary';
+            skipBtn.style.marginTop = '12px';
+            skipBtn.textContent = 'Skip Question';
+            skipBtn.onclick = () => renderLevel3();
+            reframedArea.appendChild(skipBtn);
+        }
+
+        function showReframing(question) {
+            const reframedArea = document.getElementById('reframedArea');
+            reframedArea.innerHTML = `
+                <div class="card" style="background: rgba(6, 168, 125, 0.1); border-left: 4px solid var(--success); margin-bottom: 16px;">
+                    <p>"${question.tpm}"</p>
+                </div>
+                <div class="coach-message success">
+                    This is the mindset shift. Lead with the program decision, not the technical detail. Emphasize scope, schedule, stakeholder impact, and your role as the decision enabler.
+                </div>
+                <div class="buttons-vertical">
+                    <button class="btn btn-primary" onclick="app.markRefreshingCorrect()">Got it ✓</button>
+                    <button class="btn btn-secondary" onclick="app.renderLevel3()">Next Question</button>
+                </div>
+            `;
+        }
+
+        function markRefreshingCorrect() {
+            const progress = app.levelProgress[3];
+            progress.completed++;
+            progress.mastered++;
+            renderLevel3();
+            updateReadiness();
+        }
+
+        function goToGeneralPractice() {
+            app.currentScreen = 'practice';
+            document.getElementById('homeScreen').classList.remove('active');
+            document.getElementById('levelScreen').classList.remove('active');
+            document.getElementById('level4Screen').classList.remove('active');
+            document.getElementById('guideScreen').classList.remove('active');
+            document.getElementById('generalPracticeScreen').classList.add('active');
+            updateNavigation('practice');
+
+            const practiceContent = document.getElementById('practiceContent');
+            practiceContent.innerHTML = '';
+
+            generalPracticeTargets.forEach((practice, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h3>${practice.name}</h3>
+                    <p style="color: var(--text-tertiary); font-size: 12px; margin-bottom: 12px;">Target: ${practice.timing}s</p>
+                    <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary);">
+                        ${practice.target}
+                    </div>
+                    <button class="btn btn-primary" onclick="app.practiceVoice('${idx}')">Practice This Story</button>
+                `;
+                practiceContent.appendChild(card);
+            });
+        }
+
+        function practiceVoice(idx) {
+            alert('Voice practice coming soon. For now, read the target aloud and time yourself!');
+        }
+
+        function openGuide() {
+            app.currentScreen = 'guide';
+            document.getElementById('homeScreen').classList.remove('active');
+            document.getElementById('levelScreen').classList.remove('active');
+            document.getElementById('level4Screen').classList.remove('active');
+            document.getElementById('generalPracticeScreen').classList.remove('active');
+            document.getElementById('guideScreen').classList.add('active');
+            updateNavigation('guide');
+
+            const guideContent = document.getElementById('guideContent');
+            guideContent.innerHTML = `
+                <div class="card">
+                    <h3>🎯 The L6 Interview Framework</h3>
+                    <p>Google looks for three things:</p>
+                    <ul style="list-style: none; margin-top: 12px;">
+                        <li style="margin-bottom: 8px;"><strong>Rigor:</strong> Deep technical judgment and program discipline</li>
+                        <li style="margin-bottom: 8px;"><strong>Reach:</strong> Org-level influence and portfolio thinking</li>
+                        <li style="margin-bottom: 8px;"><strong>Kindness:</strong> Collaboration, humility, servant leadership</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Interview Format</h3>
+                    <p><strong>Round 1 (Today):</strong> Introductions, background, why Google</p>
+                    <p><strong>Round 2 (Series):</strong> 4-5 behavioral questions, 2-3 hypothetical scenarios</p>
+                    <p><strong>Debrief:</strong> Questions for you about the role, team, and culture</p>
+                </div>
+
+                <div class="card">
+                    <h3>💡 TPM Language Checklist</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 8px;">✓ Scope, Schedule, Cost (The Triple Constraint)</li>
+                        <li style="margin-bottom: 8px;">✓ Phase-Gate, gates, tollgates</li>
+                        <li style="margin-bottom: 8px;">✓ Risk Register, mitigation, owner</li>
+                        <li style="margin-bottom: 8px;">✓ Critical Path, dependency, blocking</li>
+                        <li style="margin-bottom: 8px;">✓ Stakeholder, alignment, decision</li>
+                        <li style="margin-bottom: 8px;">✓ Trade matrix, trade-off</li>
+                        <li style="margin-bottom: 8px;">✓ Supply chain, vendor risk, de-risk</li>
+                        <li style="margin-bottom: 8px;">✓ Process, governance, scaling</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🎤 Voice Interview Scoring</h3>
+                    <p><strong>5 Stars:</strong> Perfect STAR structure, L6 signals, crisp language, on time</p>
+                    <p><strong>4 Stars:</strong> Good STAR, mostly on track, minor gaps</p>
+                    <p><strong>3 Stars:</strong> Rough STAR, some L6 signals, rambling or unclear</p>
+                    <p><strong>1-2 Stars:</strong> Incomplete STAR, engineer-speak, way over time</p>
+                </div>
+
+                <div class="card">
+                    <h3>📱 10 Stories You Own</h3>
+                    <p style="color: var(--text-tertiary); font-size: 13px;">1. Spatial Dimming: Whiteboard to Shipped | 2. MEMS: Kill Decision | 3. Dual-Vendor Strategy | 4. CEO Influence (Spatial Dimming) | 5. Resource Conflict (Coating Machine) | 6. Global Dimming Playbook | 7. Display Portfolio Assessment | 8. Vision Science Build | 9. Rx Lens Unification | 10. Rx Process Creation</p>
+                </div>
+
+                <div class="card">
+                    <h3>🏆 Prep Checklist</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 8px;">✓ Master Level 1 (Foundation): 90%+</li>
+                        <li style="margin-bottom: 8px;">✓ Complete Level 2 (Stories): 85%+</li>
+                        <li style="margin-bottom: 8px;">✓ Reframe 15 prompts: 85%+</li>
+                        <li style="margin-bottom: 8px;">✓ Deliver 13 voice answers: 3+ stars avg</li>
+                        <li style="margin-bottom: 8px;">✓ Pressure simulation: 70%+ readiness</li>
+                        <li style="margin-bottom: 8px;">✓ Practice background story: <90s crisp</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        function backToHome() {
+            renderHome();
+        }
+
+        function goToHome() {
+            renderHome();
+        }
+
+        function updateNavigation(page) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if (page === 'home') document.querySelectorAll('.nav-item')[0].classList.add('active');
+            else if (page === 'level') document.querySelectorAll('.nav-item')[1].classList.add('active');
+            else if (page === 'practice') document.querySelectorAll('.nav-item')[2].classList.add('active');
+            else if (page === 'guide') document.querySelectorAll('.nav-item')[3].classList.add('active');
+        }
+
+        function skipQuestion() {
+            if (app.currentLevel === 1) renderLevel1();
+            else if (app.currentLevel === 2) renderLevel2();
+            else if (app.currentLevel === 3) renderLevel3();
+        }
+
+        // ============================================
+        // VOICE RECORDING
+        // ============================================
+
+        let recognition;
+
+        function initializeSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                console.log('Speech Recognition not available in this browser');
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+        }
+
+        function startRecording() {
+            if (!recognition) {
+                alert('Voice recording not available on this device. Please try on a modern browser (Chrome, Safari, Edge).');
+                return;
+            }
+
+            const recordButton = document.getElementById('recordButton');
+            recordButton.classList.add('recording');
+            document.getElementById('actionButtons').style.display = 'flex';
+            document.getElementById('timer').style.display = 'block';
+            document.getElementById('transcription').style.display = 'block';
+
+            app.recordingStartTime = Date.now();
+            app.voiceRecording = { text: '', interim: '' };
+
+            let timerSeconds = 0;
+            app.timerInterval = setInterval(() => {
+                timerSeconds++;
+                const mins = Math.floor(timerSeconds / 60);
+                const secs = timerSeconds % 60;
+                document.getElementById('timer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (timerSeconds > 150) {
+                    document.getElementById('timer').classList.add('danger');
+                } else if (timerSeconds > 120) {
+                    document.getElementById('timer').classList.add('warning');
+                }
+            }, 1000);
+
+            recognition.onstart = () => {
+                console.log('Recording started');
+            };
+
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        app.voiceRecording.text += transcript + ' ';
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+
+                const fullText = app.voiceRecording.text + interimTranscript;
+                document.getElementById('transcription').textContent = fullText || '(listening...)';
+                if (interimTranscript) {
+                    document.getElementById('transcription').classList.add('interim');
+                } else {
+                    document.getElementById('transcription').classList.remove('interim');
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.log('Speech recognition error:', event.error);
+            };
+
+            recognition.start();
+        }
+
+        function stopRecording() {
+            if (!recognition) return;
+
+            recognition.stop();
+            clearInterval(app.timerInterval);
+
+            const recordButton = document.getElementById('recordButton');
+            recordButton.classList.remove('recording');
+            document.getElementById('actionButtons').innerHTML = `
+                <button class="btn btn-primary" onclick="app.scoreResponse()">Score My Answer</button>
+                <button class="btn btn-secondary" onclick="app.reRecord()">Re-Record</button>
+            `;
+
+            document.getElementById('transcription').classList.remove('interim');
+        }
+
+        function reRecord() {
+            document.getElementById('recordButton').classList.remove('recording');
+            document.getElementById('actionButtons').style.display = 'none';
+            document.getElementById('timer').style.display = 'none';
+            document.getElementById('timer').textContent = '0:00';
+            document.getElementById('timer').className = 'timer';
+            document.getElementById('transcription').style.display = 'none';
+            app.voiceRecording = null;
+        }
+
+        function scoreResponse() {
+            if (!app.voiceRecording || !app.voiceRecording.text.trim()) {
+                alert('No speech detected. Please re-record.');
+                return;
+            }
+
+            const text = app.voiceRecording.text.toLowerCase();
+            const timerElement = document.getElementById('timer');
+            const timeStr = timerElement.textContent;
+            const [mins, secs] = timeStr.split(':').map(Number);
+            const totalSeconds = mins * 60 + secs;
+
+            // Simple scoring heuristics
+            let score = 3; // base score
+            let feedback = [];
+
+            // Check for STAR elements
+            const hasContext = text.length > 50 && (text.includes('at') || text.includes('when') || text.includes('was'));
+            const hasAction = text.includes('i') && text.length > 100;
+            const hasResult = text.includes('result') || text.includes('delivered') || text.includes('shipped') || text.includes('success');
+
+            if (!hasContext) { feedback.push('Weak Situation — set the context better'); score--; }
+            if (!hasAction) { feedback.push('Action section unclear — be more specific'); score--; }
+            if (!hasResult) { feedback.push('Result was vague — quantify the outcome'); score--; }
+
+            // Check for TPM language
+            const tpmTerms = ['scope', 'schedule', 'cost', 'risk', 'stakeholder', 'governance', 'phase', 'gate', 'dependency', 'trade', 'vendor', 'program'];
+            const hasTPMLanguage = tpmTerms.some(term => text.includes(term));
+            if (!hasTPMLanguage) { feedback.push('More TPM language needed'); score--; }
+
+            // Check timing
+            if (totalSeconds > 180) { feedback.push('Too long — practice conciseness'); score--; }
+            else if (totalSeconds < 30) { feedback.push('Too short — more detail needed'); score--; }
+            else { feedback.push('Good timing'); }
+
+            score = Math.max(1, Math.min(5, score));
+
+            const progress = app.levelProgress[4];
+            progress.completed++;
+            progress.mastered += score;
+
+            const actionButtons = document.getElementById('actionButtons');
+            actionButtons.innerHTML = `
+                <div class="score-summary">
+                    <div class="score-label">Your Rating</div>
+                    <div class="stars-container">
+                        ${'⭐'.repeat(score)}<span style="opacity:0.3;">${'⭐'.repeat(5-score)}</span>
+                    </div>
+                    <div class="score-big">${score}/5</div>
+                </div>
+                <div class="feedback-box">
+                    <div class="feedback-label">Feedback</div>
+                    <div class="feedback-text">${feedback.join(' | ')}</div>
+                </div>
+                <div class="buttons-vertical">
+                    <button class="btn btn-primary" onclick="app.renderLevel4()">Next Question</button>
+                    <button class="btn btn-secondary" onclick="app.backToHome()">Back to Home</button>
+                </div>
+            `;
+
+            updateReadiness();
+        }
+
+        // ============================================
+        // EXPORT & MAIN
+        // ============================================
+
+        window.app = app;
+        window.app.goToLevel = goToLevel;
+        window.app.goToHome = goToHome;
+        window.app.renderLevel1 = renderLevel1;
+        window.app.renderLevel2 = renderLevel2;
+        window.app.renderLevel3 = renderLevel3;
+        window.app.renderLevel4 = renderLevel4;
+        window.app.backToHome = backToHome;
+        window.app.goToGeneralPractice = goToGeneralPractice;
+        window.app.openGuide = openGuide;
+        window.app.selectOption = selectOption;
+        window.app.selectStory = selectStory;
+        window.app.showReframing = showReframing;
+        window.app.markRefreshingCorrect = markRefreshingCorrect;
+        window.app.skipQuestion = skipQuestion;
+        window.app.startRecording = startRecording;
+        window.app.stopRecording = stopRecording;
+        window.app.reRecord = reRecord;
+        window.app.scoreResponse = scoreResponse;
+        window.app.practiceVoice = practiceVoice;
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
